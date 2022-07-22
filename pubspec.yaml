@@ -27,7 +27,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/animations/ # not used
     - assets/svg/ # used for images
     - assets/examples/ # used for default configs
     - assets/logo/ # used branding
