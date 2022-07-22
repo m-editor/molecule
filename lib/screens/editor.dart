@@ -3,6 +3,7 @@ import 'package:molecule/core/color.dart';
 import 'package:molecule/core/events.dart';
 import 'package:molecule/widgets/bottombar.dart';
 import 'package:molecule/widgets/filetree.dart';
+import 'package:molecule/widgets/tabview.dart';
 
 class Editor extends StatefulWidget {
   const Editor({Key? key}) : super(key: key);
@@ -11,8 +12,11 @@ class Editor extends StatefulWidget {
   State<Editor> createState() => _EditorState();
 }
 
+int initPosition = 0;
+
 class _EditorState extends State<Editor> {
   bool _fileTree = true;
+  final data = ["Laura", "Leo", "Liam", "Lara", "Larissa"];
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +42,14 @@ class _EditorState extends State<Editor> {
                       height: MediaQuery.of(context).size.height,
                       color: MColorScheme.backgroundColor.withOpacity(.6),
                       width: MediaQuery.of(context).size.width * .8,
-                      child: const Text("Editor"),
+                      child: CostumTabView(
+                          initPosition: initPosition,
+                          itemCount: data.length,
+                          tabBuilder: (context, index) =>
+                              Tab(child: Text(data[index])),
+                          pageBuilder: (context, index) => Text("lol"),
+                          onPositionChange: (val) => initPosition = val,
+                          onScroll: (_) {}),
                     ),
                   ],
                 ),
