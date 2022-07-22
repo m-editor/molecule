@@ -16,7 +16,13 @@ int initPosition = 0;
 
 class _EditorState extends State<Editor> {
   bool _fileTree = true;
-  final data = ["Laura", "Leo", "Liam", "Lara", "Larissa"];
+  final data = [
+    "Laura",
+    "Leo",
+    "Liam",
+    "Lara",
+    "Larissa",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +47,23 @@ class _EditorState extends State<Editor> {
                     Container(
                       height: MediaQuery.of(context).size.height,
                       color: MColorScheme.backgroundColor.withOpacity(.6),
-                      width: MediaQuery.of(context).size.width * .8,
+                      width: _fileTree
+                          ? MediaQuery.of(context).size.width * .8
+                          : MediaQuery.of(context).size.width,
                       child: CostumTabView(
                           initPosition: initPosition,
                           itemCount: data.length,
                           tabBuilder: (context, index) =>
                               Tab(child: Text(data[index])),
-                          pageBuilder: (context, index) => Text("lol"),
+                          pageBuilder: (context, index) => const Padding(
+                                padding: EdgeInsets.all(15),
+                                child: TextField(
+                                  maxLines: null,
+                                  decoration:
+                                      InputDecoration.collapsed(hintText: ""),
+                                  keyboardType: TextInputType.multiline,
+                                ),
+                              ),
                           onPositionChange: (val) => initPosition = val,
                           onScroll: (_) {}),
                     ),
