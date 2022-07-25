@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import 'package:molecule/core/color.dart';
 
 class FileTree extends StatefulWidget {
@@ -20,7 +21,7 @@ class _FileTreeState extends State<FileTree> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            FaIcon(FontAwesomeIcons.folderTree, color: MColorScheme.textColor),
+            Icon(LucideIcons.folderTree, color: MColorScheme.textColor),
             SizedBox(
               height: MediaQuery.of(context).size.height * .02,
             ),

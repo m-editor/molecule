@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import 'package:molecule/core/color.dart';
 import 'package:molecule/core/events.dart' show FileTreeToggleNotification;
 import 'package:molecule/core/file.dart';
@@ -35,19 +36,15 @@ class _MoleculeBottomBarState extends State<MoleculeBottomBar> {
                           height: 12,
                           minWidth: 12,
                           padding: EdgeInsets.zero,
-                          child: FaIcon(FontAwesomeIcons.folderTree,
-                              color: MColorScheme.textColor, size: 12),
+                          child: Icon(LucideIcons.folderTree,
+                              color: MColorScheme.textColor, size: 15),
                         )
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        MaterialButton(
-                            onPressed: () => openFiles(),
-                            child: const Text("OPEN"))
-                      ],
+                      children: const [],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
