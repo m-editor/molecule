@@ -1,7 +1,6 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:molecule/core/color.dart';
 import 'package:molecule/core/config.dart';
-import 'package:ms_undraw/ms_undraw.dart';
 import 'package:url_launcher/url_launcher.dart' show canLaunchUrl, launchUrl;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

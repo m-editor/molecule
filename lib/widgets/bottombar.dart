@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:molecule/core/color.dart';
 import 'package:molecule/core/events.dart' show FileTreeToggleNotification;
+import 'package:molecule/core/file.dart';
 
 class MoleculeBottomBar extends StatefulWidget {
   const MoleculeBottomBar({Key? key}) : super(key: key);
@@ -42,14 +43,18 @@ class _MoleculeBottomBarState extends State<MoleculeBottomBar> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [],
+                      children: [
+                        MaterialButton(
+                            onPressed: () => openFiles(),
+                            child: const Text("OPEN"))
+                      ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          "Molecule v0.3",
+                          "Molecule v0.1",
                           style: TextStyle(color: MColorScheme.textColor),
                         )
                       ],

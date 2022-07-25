@@ -1,31 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:molecule/core/color.dart';
 import 'package:molecule/core/events.dart';
+import 'package:molecule/core/keyboard.dart';
+import 'package:molecule/core/state.dart';
 import 'package:molecule/widgets/bottombar.dart';
 import 'package:molecule/widgets/filetree.dart';
 import 'package:molecule/widgets/tabview.dart';
+import 'package:molecule/widgets/textarea.dart';
 
-class Editor extends StatefulWidget {
+class Editor extends ConsumerStatefulWidget {
   const Editor({Key? key}) : super(key: key);
 
   @override
-  State<Editor> createState() => _EditorState();
+  ConsumerState<Editor> createState() => _EditorState();
 }
 
 int initPosition = 0;
 
-class _EditorState extends State<Editor> {
+class _EditorState extends ConsumerState<Editor> {
   bool _fileTree = true;
-  final data = [
-    "Laura",
-    "Leo",
-    "Liam",
-    "Lara",
-    "Larissa",
-  ];
+  late TextEditingController _textEditingController;
+  List<File> data = [];
+
+  @override
+  void initState() {
+    _textEditingController = TextEditingController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    data = ref.watch(tabProvider);
     return NotificationListener<FileTreeToggleNotification>(
         onNotification: (notification) {
           setState(() {
@@ -51,21 +58,29 @@ class _EditorState extends State<Editor> {
                           ? MediaQuery.of(context).size.width * .8
                           : MediaQuery.of(context).size.width,
                       child: CostumTabView(
-                          initPosition: initPosition,
-                          itemCount: data.length,
-                          tabBuilder: (context, index) =>
-                              Tab(child: Text(data[index])),
-                          pageBuilder: (context, index) => const Padding(
-                                padding: EdgeInsets.all(15),
-                                child: TextField(
-                                  maxLines: null,
-                                  decoration:
-                                      InputDecoration.collapsed(hintText: ""),
-                                  keyboardType: TextInputType.multiline,
-                                ),
-                              ),
-                          onPositionChange: (val) => initPosition = val,
-                          onScroll: (_) {}),
+                        initPosition: initPosition,
+                        itemCount: data.length,
+                        tabBuilder: (context, index) =>
+                            Tab(child: Text(data[index].name)),
+                        pageBuilder: (context, index) => Shortcuts(
+                            shortcuts: <LogicalKeySet, Intent>{
+                              LogicalKeySet(LogicalKeyboardKey.control,
+                                      LogicalKeyboardKey.keyS):
+                                  const SaveFileIntent(),
+                            },
+                            child: Actions(
+                                actions: <Type, Action<Intent>>{
+                                  SaveFileIntent: SaveFileAction(index),
+                                },
+                                child: Padding(
+                                    padding: const EdgeInsets.all(15),
+                                    child: TextArea(index: index)))),
+                        onPositionChange: (val) {
+                          initPosition = val;
+                        },
+                        onScroll: (_) {},
+                        onUpdate: (currentCount) {},
+                      ),
                     ),
                   ],
                 ),
