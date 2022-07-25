@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:molecule/core/color.dart';
+import 'package:molecule/core/state.dart';
 
 // ignore: must_be_immutable
 class CostumTabView extends StatefulWidget {
@@ -9,6 +10,7 @@ class CostumTabView extends StatefulWidget {
   final stub = null;
   late ValueChanged<int> onPositionChange;
   late ValueChanged<double> onScroll;
+  late ValueChanged onUpdate;
   final int initPosition;
 
   CostumTabView(
@@ -19,6 +21,7 @@ class CostumTabView extends StatefulWidget {
       required this.onPositionChange,
       required this.onScroll,
       required this.initPosition,
+      required this.onUpdate,
       Key? key})
       : super(key: key);
 
@@ -51,13 +54,14 @@ class _CostumTabViewState extends State<CostumTabView>
       tabController.removeListener(onPositionChange);
       tabController.dispose();
 
+      // ignore: unnecessary_null_comparison
       if (widget.initPosition != null) {
         _currentPosition = widget.initPosition;
       }
-
       if (_currentPosition > widget.itemCount - 1) {
         _currentPosition = widget.itemCount - 1;
         _currentPosition = _currentPosition < 0 ? 0 : _currentPosition;
+
         // ignore: unnecessary_type_check
         if (widget.onPositionChange is ValueChanged<int>) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -76,6 +80,7 @@ class _CostumTabViewState extends State<CostumTabView>
         tabController.addListener(onPositionChange);
         tabController.animation!.addListener(onScroll);
       });
+      // ignore: unnecessary_null_comparison
     } else if (widget.initPosition != null) {
       tabController.animateTo(widget.initPosition);
     }
@@ -93,18 +98,22 @@ class _CostumTabViewState extends State<CostumTabView>
   @override
   Widget build(BuildContext context) {
     if (widget.itemCount < 1) return widget.stub ?? Container();
-    return Container(
-        child: Column(
+    return Column(
       children: <Widget>[
         Container(
           height: MediaQuery.of(context).size.height * .05,
           width: double.infinity,
-          color: MColorScheme.backgroundColor,
+          decoration: BoxDecoration(
+            color: MColorScheme.backgroundColor,
+            boxShadow: kElevationToShadow[8],
+            // border: const Border(
+            //     bottom: BorderSide(color: Colors.white, width: .5))
+          ),
           child: TabBar(
             isScrollable: true,
             controller: tabController,
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.white24,
+            labelColor: MColorScheme.textColor,
+            unselectedLabelColor: MColorScheme.brighterBackgroundColor,
             indicator: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
@@ -133,7 +142,7 @@ class _CostumTabViewState extends State<CostumTabView>
           ),
         ),
       ],
-    ));
+    );
   }
 
   void onPositionChange() {
@@ -150,5 +159,13 @@ class _CostumTabViewState extends State<CostumTabView>
     if (widget.onScroll is ValueChanged<int>) {
       widget.onScroll(tabController.animation!.value);
     }
+  }
+
+  // method that is triggered when widget is updated
+  void onUpdate() {
+    if (_currentCount - 1 > _currentPosition) {
+      // widget has been added
+    }
+    widget.onUpdate(_currentPosition);
   }
 }
