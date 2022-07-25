@@ -1,16 +1,18 @@
-# molecule
+# ⚛️ molecule
 
-A new Flutter project.
+> Independent native editor
 
-## Getting Started
+## ❓ What is molecule?
+Molecule is an independent native text editor.
 
-This project is a starting point for a Flutter application.
+## 💻 Why not VSCode?
+VSCode is without a doubt a very good editor, unfortunately it has one major drawback. Electron. Electron is a ramhog, so VSCode already gets a very high RAM load with little work.
 
-A few resources to get you started if this is your first Flutter project:
+## 🧩 Plugin Support
+Plugin support for Molecule is planned. However, the focus is currently on other things.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 🖌️ Theme Support
+Like plugin support, user theme support is also planned and will be implemented very soon.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🐧 Why are there only binaries for Linux?
+I only use Linux as my operating system. The other platforms like MacOS or Windows do not interest me. But everyone is free to compile the code for these platforms.

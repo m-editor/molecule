@@ -4,8 +4,10 @@
 
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:json2yaml/json2yaml.dart';
 import 'package:molecule/core/init.dart' show getConfigDir;
+import 'package:molecule/utils/converter.dart';
 import 'dart:io' show File;
 
 import 'package:yaml/yaml.dart' show loadYaml, YamlMap;
@@ -15,7 +17,29 @@ class Config {
   Config() {
     content = getConfigData();
   }
+
+  FontSettings get fontSettings {
+    return FontSettings(content["font"]);
+  }
 }
+
+class FontSettings {
+  final Map<String, dynamic> fontSettings;
+  FontSettings(this.fontSettings);
+
+  String? get fontFamily => fontSettings["family"];
+  get fontSize => fontSettings["size"] ?? 13.0;
+  bool get fontLigatures => fontSettings["ligatures"] ?? false;
+  FontWeight? get fontWeight {
+    if (fontSettings["weight"] != null) {
+      return weightToFontWeight(fontSettings["weight"]);
+    } else {
+      return FontWeight.normal;
+    }
+  }
+}
+
+final moleculeConfig = Config();
 
 /// get config file data
 Map<String, dynamic> getConfigData() {
