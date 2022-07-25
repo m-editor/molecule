@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import "package:flutter/material.dart";
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:molecule/core/color.dart';
 import 'package:molecule/core/config.dart' show moleculeConfig;
 import 'package:molecule/core/file.dart';
 import 'package:molecule/core/state.dart';
@@ -49,6 +50,7 @@ class _TextAreaState extends ConsumerState<TextArea> {
                 fontFamily: moleculeConfig.fontSettings.fontFamily,
                 fontSize: moleculeConfig.fontSettings.fontSize as double,
                 fontWeight: moleculeConfig.fontSettings.fontWeight,
+                color: MColorScheme.textColor,
                 fontFeatures: [
                   if (!moleculeConfig.fontSettings.fontLigatures) ...[
                     const FontFeature.disable("calt"),
