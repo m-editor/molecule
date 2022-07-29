@@ -39,7 +39,7 @@ class FontSettings {
   }
 }
 
-final moleculeConfig = Config();
+Config moleculeConfig = Config();
 
 /// get config file data
 Map<String, dynamic> getConfigData() {
@@ -56,4 +56,8 @@ void writeSetting(String key, dynamic value) {
     final String yamlContent = json2yaml(content);
     File("${getConfigDir()}/config.yml").writeAsStringSync(yamlContent);
   }
+}
+
+void reloadConf() {
+  moleculeConfig = Config();
 }

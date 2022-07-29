@@ -11,8 +11,18 @@ class File {
   final String name;
   final String path;
   final String ext;
+  bool? isEmpty = false;
 
-  const File(this.name, this.path, this.ext);
+  factory File.create(String name, String path, String ext, bool isEmpty) {
+    return File(name, path, ext, isEmpty: isEmpty);
+  }
+
+  File(this.name, this.path, this.ext, {this.isEmpty});
+
+  @override
+  String toString() {
+    return "File $name at $path (EMPTY: $isEmpty)";
+  }
 }
 
 class TabState extends StateNotifier<List<File>> {
@@ -27,6 +37,12 @@ class TabState extends StateNotifier<List<File>> {
       }
     }
     return false;
+  }
+
+  void replaceFileAt(int index, File file) {
+    List<File> copyOfState = state;
+    copyOfState[index] = file;
+    state = [...copyOfState];
   }
 }
 
