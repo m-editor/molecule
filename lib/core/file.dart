@@ -2,6 +2,14 @@ import 'package:file_picker/file_picker.dart';
 import 'package:molecule/core/state.dart' show provCot, tabProvider, File;
 import 'dart:io' as io;
 
+import 'package:molecule/utils/guid.dart';
+
+void openEmptyFile() {
+  final emptyFile =
+      File("Untitled file", "empty#${GUIDGen.generate()}", "", isEmpty: true);
+  provCot.read(tabProvider.notifier).addTab(emptyFile);
+}
+
 void openFiles({bool allowMultiple = true}) async {
   final results =
       await FilePicker.platform.pickFiles(allowMultiple: allowMultiple);

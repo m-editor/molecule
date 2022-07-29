@@ -32,7 +32,17 @@ class _TextAreaState extends ConsumerState<TextArea> {
     return FutureBuilder(
         future: getAsyncFileContent(data[widget.index].path),
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-          if (ref.read(fileCache.notifier).exists(data[widget.index].path)) {
+          if (data[widget.index].isEmpty == true) {
+            if (ref.read(fileCache.notifier).exists(data[widget.index].path)) {
+              _textEditingController.text = ref
+                  .read(fileCache.notifier)
+                  .cachedFileContent(data[widget.index].path);
+            } else {
+              _textEditingController.text = "";
+            }
+          } else if (ref
+              .read(fileCache.notifier)
+              .exists(data[widget.index].path)) {
             _textEditingController.text = ref
                 .read(fileCache.notifier)
                 .cachedFileContent(data[widget.index].path);
