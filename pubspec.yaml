@@ -46,4 +46,7 @@ flutter:
     - family: Roboto
       fonts:
         - asset: fonts/Roboto-Regular.ttf
+    - family: Fira Code
+      fonts:
+        - asset: fonts/FiraCode.ttf
 

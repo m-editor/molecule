@@ -19,7 +19,7 @@ class Config {
   }
 
   FontSettings get fontSettings {
-    return FontSettings(content["font"]);
+    return FontSettings(content["font"] ?? {});
   }
 }
 
@@ -27,7 +27,7 @@ class FontSettings {
   final Map<String, dynamic> fontSettings;
   FontSettings(this.fontSettings);
 
-  String? get fontFamily => fontSettings["family"];
+  String get fontFamily => fontSettings["family"] ?? "Fira Code";
   get fontSize => fontSettings["size"] ?? 13.0;
   bool get fontLigatures => fontSettings["ligatures"] ?? false;
   FontWeight? get fontWeight {
