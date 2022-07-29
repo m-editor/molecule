@@ -3,10 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:molecule/core/color.dart';
 import 'package:molecule/core/events.dart';
+import 'package:molecule/core/init.dart';
 import 'package:molecule/core/keyboard.dart';
 import 'package:molecule/core/state.dart';
 import 'package:molecule/widgets/bottombar.dart';
 import 'package:molecule/widgets/filetree.dart';
+import 'package:molecule/widgets/setupwizard.dart';
 import 'package:molecule/widgets/tabview.dart';
 import 'package:molecule/widgets/textarea.dart';
 
@@ -20,14 +22,15 @@ class Editor extends ConsumerStatefulWidget {
 int initPosition = 0;
 
 class _EditorState extends ConsumerState<Editor> {
-  bool _fileTree = true;
-  late TextEditingController _textEditingController;
+  bool _fileTree = false;
   List<File> data = [];
 
   @override
   void initState() {
-    _textEditingController = TextEditingController();
     super.initState();
+    if (configExists() == false) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => setupWizard(context));
+    }
   }
 
   @override

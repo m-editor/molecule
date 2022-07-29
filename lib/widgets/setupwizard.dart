@@ -414,7 +414,8 @@ void finishPage(BuildContext context) {
                                     ? (await launchUrl(Uri.parse(
                                         "https://github.com/m-editor/molecule")))
                                     : null,
-                                icon: const FaIcon(FontAwesomeIcons.github))
+                                icon: const FaIcon(FontAwesomeIcons.github,
+                                    color: Colors.white))
                           ]),
                           SvgPicture.asset("assets/svg/finish.svg",
                               width: 300,
