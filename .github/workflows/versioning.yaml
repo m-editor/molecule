@@ -19,4 +19,10 @@ jobs:
       run: |
         echo ${{ steps.get_next_version.outputs.version }}
         echo ${{ steps.get_next_version.outputs.hasNextVersion }}
+    - name: Create release
+      if: ${{steps.get_next_version.outputs.hasNextVersion == 'true' }}
+      run: |
+        NEXT_VERSION = ${{ steps.get_next_version.outputs.version }}
+        git tag $NEXT_VERSION
+        git push origin $NEXT_VERSION
     
